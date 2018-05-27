@@ -47,6 +47,9 @@ def first_pass( commands ):
             if not found_frames:
                 print "Must call 'frames' command before calling vary"
                 return
+            if args[0] > num_frames-1 or args[0] < 0 or args[1] > num_frames-1 or args[1] < 0:
+                print "Vary ranges out of bounds"
+                return
 
 """======== second_pass( commands ) ==========
 
@@ -143,7 +146,7 @@ def run(filename):
     second_pass(commands)
     print "Basename: " + str(basename)
     print "Num Frames: " + str(num_frames)
-    print symbols
+    #print symbols
 
     for frame in range(int(num_frames)):
         print "Frame #: " + str(frame)
@@ -160,7 +163,7 @@ def run(filename):
 
             if (not args == None) and "knob" in command and (not command["knob"] == None) and c in ["move", "scale", "rotate"]:
                 knob = command["knob"]
-                print command
+                #print command
                 for i in range(len(args)):
                     if not isinstance(args[i], basestring):
                         args[i] = args[i] * symbols[knob][1]
